@@ -29,7 +29,7 @@ For help on editing plugin code, view the [documentation](https://flutter.io/pla
 
 ## Installation and Usage
 
-Once you're familiar with Flutter you may install this package adding `sms_maintained` (0.2.5 or higher) to the dependencies list of the `pubspec.yaml` file as follow:
+Once you're familiar with Flutter you may install this package adding `sms_maintained` (0.2.6 or higher) to the dependencies list of the `pubspec.yaml` file as follow:
 
 ```yaml
 ...
@@ -37,7 +37,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  sms_maintained: ^0.2.5
+  sms_maintained: ^0.2.6
 ...
 ```
 

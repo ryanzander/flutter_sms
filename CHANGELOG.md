@@ -1,3 +1,9 @@
+## [0.2.6] - 2020-05-22
+
+* Fixed Api deprecated warning
+* SDK version requirement bump to >=2.1.0
+* Fixed pubspec.yaml plugin section
+
 ## [0.2.5] - 2019-03-17
 
 * Add way to remove one message at a time.

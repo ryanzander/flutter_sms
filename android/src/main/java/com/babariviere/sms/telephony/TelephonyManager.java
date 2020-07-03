@@ -3,6 +3,8 @@ package com.babariviere.sms.telephony;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.telephony.SubscriptionInfo;
+import android.telephony.SubscriptionManager;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -21,20 +23,11 @@ public class TelephonyManager {
         return this.getManager().getPhoneCount();
     }
 
+    @TargetApi(Build.VERSION_CODES.O)
     public String getSimId(int slotId) {
-        String imei ="";
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-             imei = this.getManager().getImei(slotId);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-             imei = this.getManager().getDeviceId(slotId);
-        }
-        else{
-            imei = this.getManager().getDeviceId();
-        }
+        String imei = this.getManager().getImei(slotId);
         return imei;
     }
-
-
 
     private android.telephony.TelephonyManager getManager() {
         if (this.manager == null) {
@@ -55,5 +48,16 @@ public class TelephonyManager {
         }
 
         return android.telephony.TelephonyManager.SIM_STATE_UNKNOWN;
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    public String[] getSubscriptionInfo(int slotId) {
+        SubscriptionManager manager = this.context.getSystemService(SubscriptionManager.class);
+        SubscriptionInfo subscriptionInfo = manager.getActiveSubscriptionInfoForSimSlotIndex(slotId);
+
+        final CharSequence displayName = subscriptionInfo.getDisplayName();
+        final int subId = subscriptionInfo.getSubscriptionId();
+
+        return new String[] {displayName.toString(), String.valueOf(subId)};
     }
 }

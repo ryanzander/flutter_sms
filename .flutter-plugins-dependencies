@@ -1,0 +1,1 @@
+{"info":"This is a generated file; do not edit or check into version control.","plugins":{"ios":[],"android":[{"name":"sms_maintained","path":"D:\\\\test\\\\flutter_sms\\\\","dependencies":[]}],"macos":[],"linux":[],"windows":[],"web":[]},"dependencyGraph":[{"name":"sms_maintained","dependencies":[]}],"date_created":"2021-03-27 02:39:02.912416","version":"2.0.3"}

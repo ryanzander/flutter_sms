@@ -4,7 +4,6 @@ library sms_maintained;
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:sms_maintained/contact.dart';
 import 'package:sms_maintained/globals.dart';
 
 typedef OnError(Object error);
@@ -170,7 +169,6 @@ class SmsMessage implements Comparable<SmsMessage> {
 class SmsThread {
   int? _id;
   String? _address;
-  Contact? _contact;
   List<SmsMessage> _messages = [];
 
   SmsThread(int id) : this._id = id;
@@ -217,15 +215,6 @@ class SmsThread {
     }
   }
 
-  /// Set contact through contact query
-  Future findContact() async {
-    ContactQuery query = new ContactQuery();
-    Contact? contact = await query.queryContact(this._address);
-    if (contact != null) {
-      this._contact = contact;
-    }
-  }
-
   /// Get messages from thread
   List<SmsMessage> get messages => this._messages;
 
@@ -240,12 +229,6 @@ class SmsThread {
 
   /// Get thread id (for compatibility)
   int? get threadId => this._id;
-
-  /// Get contact info
-  Contact? get contact => this._contact;
-
-  /// Set contact info
-  set contact(Contact? contact) => this._contact = contact;
 }
 
 /// A SMS receiver that creates a stream of SMS
@@ -471,7 +454,6 @@ class SmsQuery {
     for (var id in threadsId) {
       final messages = await this.querySms(threadId: id, kinds: kinds);
       final thread = new SmsThread.fromMessages(messages);
-      await thread.findContact();
       threads.add(thread);
     }
     return threads;
@@ -496,7 +478,6 @@ class SmsQuery {
     List<SmsThread> threads = <SmsThread>[];
     for (var k in filtered.keys) {
       final thread = new SmsThread.fromMessages(filtered[k]);
-      await thread.findContact();
       threads.add(thread);
     }
     return threads;
